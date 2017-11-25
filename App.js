@@ -4,8 +4,9 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
 import DeckDetails from './components/DeckDetails'
+import QuizView from './components/QuizView'
 import { Constants } from 'expo'
-import { lightBlue } from './utils/colors'
+import { lightBlue, darkerBlue } from './utils/colors'
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
   return (
@@ -37,13 +38,9 @@ const Tabs = TabNavigator({
     style: {
       height: 56,
       backgroundColor: Platform.OS === 'ios' ? lightBlue : lightBlue,
-      shadowColor: 'rgba(0, 0, 0, 0.24)',
-      shadowOffset: {
-        width: 0,
-        height: 3
-      },
-      shadowRadius: 6,
-      shadowOpacity: 1
+    },
+    indicatorStyle: {
+      backgroundColor: darkerBlue
     }
   }
 })
@@ -54,6 +51,15 @@ const MainNavigator = StackNavigator({
   },
   DeckDetails: {
     screen: DeckDetails,
+    navigationOptions: {
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: lightBlue
+      }
+    }
+  },
+  QuizView: {
+    screen: QuizView,
     navigationOptions: {
       headerTintColor: 'white',
       headerStyle: {

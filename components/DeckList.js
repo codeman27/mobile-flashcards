@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { lightBlue, darkerBlue } from '../utils/colors'
-import DeckDetails from './DeckDetails'
+
 
 class DeckList extends Component {
   state = {

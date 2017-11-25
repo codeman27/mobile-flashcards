@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Button } from 'react-native'
+import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native'
 import { darkerBlue, lightBlue } from '../utils/colors'
+import TextButton from './TextButton'
 
 class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -16,9 +17,12 @@ class DeckDetails extends Component {
         <Text style={styles.title}>{deckDetails.title}</Text>
         <Text style={styles.sub}>{deckDetails.questions.length} cards</Text>
         <View style={styles.btnView}>
-          <Button style={styles.startBtn} title='Add Card'/>
-          <Button style={styles.startBtn} title='Start Quiz'/>
         </View>
+        <TextButton
+          text='Start Quiz'
+          onPress={() => this.props.navigation.navigate('QuizView', {questions: deckDetails.questions})}
+          style={{backgroundColor: lightBlue}}
+        />
       </View>
     )
   }
@@ -38,14 +42,9 @@ const styles = StyleSheet.create({
   },
   sub: {
     fontSize: 20,
-    color: darkerBlue
+    color: lightBlue
   },
   btnView: {
     paddingTop: 40
   },
-  startBtn: {
-    padding: 10,
-    color: lightBlue,
-    borderRadius: 10
-  }
 })
