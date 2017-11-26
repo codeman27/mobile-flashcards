@@ -19,6 +19,11 @@ class DeckDetails extends Component {
         <View style={styles.btnView}>
         </View>
         <TextButton
+          text='Add Card'
+          onPress={() => this.props.navigation.navigate('AddCard')}
+          style={{backgroundColor: darkerBlue}}
+        />
+        <TextButton
           text='Start Quiz'
           onPress={() => this.props.navigation.navigate('QuizView', {questions: deckDetails.questions})}
           style={{backgroundColor: lightBlue}}

@@ -5,6 +5,7 @@ import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
 import DeckDetails from './components/DeckDetails'
 import QuizView from './components/QuizView'
+import AddCard from './components/AddCard'
 import { Constants } from 'expo'
 import { lightBlue, darkerBlue } from './utils/colors'
 
@@ -60,6 +61,15 @@ const MainNavigator = StackNavigator({
   },
   QuizView: {
     screen: QuizView,
+    navigationOptions: {
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: lightBlue
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCard,
     navigationOptions: {
       headerTintColor: 'white',
       headerStyle: {
