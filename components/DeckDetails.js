@@ -6,12 +6,14 @@ import TextButton from './TextButton'
 class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     const { deckDetails } = navigation.state.params
+    console.log(deckDetails)
     return {
       title: deckDetails.title
     }
   }
   render() {
     const { deckDetails } = this.props.navigation.state.params
+    console.log(deckDetails)
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{deckDetails.title}</Text>
@@ -20,12 +22,12 @@ class DeckDetails extends Component {
         </View>
         <TextButton
           text='Add Card'
-          onPress={() => this.props.navigation.navigate('AddCard')}
+          onPress={() => this.props.navigation.navigate('AddCard', {deckDetails: deckDetails})}
           style={{backgroundColor: darkerBlue}}
         />
         <TextButton
           text='Start Quiz'
-          onPress={() => this.props.navigation.navigate('QuizView', {questions: deckDetails.questions})}
+          onPress={() => this.props.navigation.navigate('QuizView', {questions: deckDetails.questions, deckDetails: deckDetails})}
           style={{backgroundColor: lightBlue}}
         />
       </View>

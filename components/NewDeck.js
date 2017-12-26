@@ -1,11 +1,21 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Keyboard, AsyncStorage } from 'react-native'
 import { lightBlue, darkerBlue } from '../utils/colors'
 import TextButton from './TextButton'
+import { connect } from 'react-redux'
+import { saveDeckTitle } from '../actions'
+import { DECK_STORAGE_KEY } from '../utils/helpers'
 
 class NewDeck extends Component {
   state={
     deckName: ''
+  }
+
+  componentWillReceiveProps(nextProps){
+    const { decks } = nextProps
+    this.props.navigation.navigate('DeckDetails', {deckDetails: decks[this.state.deckName]})
+    this.setState({deckName: ''})
+    Keyboard.dismiss()
   }
 
   render(){
@@ -16,12 +26,14 @@ class NewDeck extends Component {
           onChangeText={(deckName) => this.setState({deckName})}
           style={styles.inputField}
           placeholder='Deck Title'
-          value={this.state.deckName}>
+          value={this.state.deckName}
+          underlineColorAndroid={'transparent'}
+          autoCorrect={false}>
         </TextInput>
         <View style={{flex: 1, alignItems: 'center', marginTop: 40}}>
           <TextButton
             text='Submit'
-            onPress={() => console.log('Submit')}
+            onPress={() => this.props.saveDeckTitle(this.state.deckName)}
             style={{backgroundColor: lightBlue}}
           />
         </View>
@@ -46,4 +58,17 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+function mapStateToProps ({decks}) {
+  //AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(decks))
+  return {
+    decks
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    saveDeckTitle: (title) => dispatch(saveDeckTitle(title))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewDeck)

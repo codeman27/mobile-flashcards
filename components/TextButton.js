@@ -13,7 +13,7 @@ function TextButton ({ text, onPress, style = {} }) {
 const styles = StyleSheet.create({
   btn: {
     height: 40,
-    width: 80,
+    width: 85,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 3,

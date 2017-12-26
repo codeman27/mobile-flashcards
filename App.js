@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
 import DeckDetails from './components/DeckDetails'
@@ -8,8 +10,11 @@ import QuizView from './components/QuizView'
 import AddCard from './components/AddCard'
 import { Constants } from 'expo'
 import { lightBlue, darkerBlue } from './utils/colors'
+import reducer from './reducers'
+import devToolsEnhancer from 'remote-redux-devtools'
+import { setLocalNotification } from './utils/helpers'
 
-function UdaciStatusBar ({backgroundColor, ...props}) {
+function FlashcardStatusBar ({backgroundColor, ...props}) {
   return (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
       <StatusBar translucent backgroundColor={backgroundColor} {...props} />
@@ -79,13 +84,20 @@ const MainNavigator = StackNavigator({
   }
 })
 
+const store = createStore(reducer, devToolsEnhancer())
+
 export default class App extends React.Component {
+  componentDidMount(){
+    setLocalNotification()
+  }
   render() {
     return (
-      <View style={{flex: 1}}>
-        <UdaciStatusBar backgroundColor={lightBlue} barStyle='light-content' />
-        <MainNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={{flex: 1}}>
+          <FlashcardStatusBar backgroundColor={lightBlue} barStyle='light-content' />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
