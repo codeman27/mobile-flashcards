@@ -20,7 +20,7 @@ class AddCard extends Component {
     const { deckDetails } = this.props.navigation.state.params
     this.props.saveCardToDeck(title, question, answer)
     this.setState({question: '', answer:''})
-    this.props.navigation.navigate('DeckList')
+    //this.props.navigation.navigate('DeckList')
   }
 
   render() {

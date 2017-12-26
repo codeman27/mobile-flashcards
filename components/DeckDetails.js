@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native'
 import { darkerBlue, lightBlue } from '../utils/colors'
 import TextButton from './TextButton'
+import { connect } from 'react-redux'
 
 class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -35,8 +36,6 @@ class DeckDetails extends Component {
   }
 }
 
-export default DeckDetails
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -55,3 +54,11 @@ const styles = StyleSheet.create({
     paddingTop: 40
   },
 })
+
+function mapStateToProps ({decks}) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(DeckDetails)

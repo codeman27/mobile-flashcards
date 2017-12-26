@@ -13,12 +13,12 @@ const QuizResults = (props) => {
           <Text style={styles.results}>{Math.floor((props.correct/props.questionNum) * 100)}%</Text>
           <TextButton
             text='Restart Quiz'
-            onPress={() => props.navigation.navigate('QuizView', {questions: props.questions})}
+            onPress={() => props.onRefreshState()}
             style={{backgroundColor: darkerBlue}}
           />
           <TextButton
             text='Back to Deck'
-            onPress={() => props.navigation.navigate('DeckDetails', {deckDetails: props.deckDetails})}
+            onPress={() => props.navigation.goBack(null)}
             style={{backgroundColor: lightBlue}}
           />
         </View>)

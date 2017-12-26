@@ -16,6 +16,10 @@ class QuizView extends Component {
     correct: 0
   }
 
+  refreshState = () => {
+    this.setState({curQ: 0, answer: false, correct: 0})
+  }
+
   render() {
     const { curQ, answer, correct } = this.state
     const { questions, deckDetails } = this.props.navigation.state.params
@@ -23,7 +27,7 @@ class QuizView extends Component {
 
     if(curQ === qNum){
       return (
-        <QuizResults correct={correct} questionNum={qNum} navigation={this.props.navigation} questions={questions} deckDetails={deckDetails}/>
+        <QuizResults correct={correct} questionNum={qNum} navigation={this.props.navigation} questions={questions} deckDetails={deckDetails} onRefreshState={this.refreshState}/>
       )
     }
     else {
