@@ -3,11 +3,13 @@ import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native'
 import { darkerBlue, lightBlue } from '../utils/colors'
 import TextButton from './TextButton'
 import { connect } from 'react-redux'
+import {  StackNavigator } from 'react-navigation'
+import QuizView from './QuizView'
+import AddCard from './AddCard'
 
 class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     const { deckDetails } = navigation.state.params
-    console.log(deckDetails)
     return {
       title: deckDetails.title
     }
@@ -55,10 +57,22 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps ({decks}) {
-  return {
-    decks
-  }
-}
+const DeckDetailsNavigator = StackNavigator({
+  Home: {
+    screen: DeckDetails
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      headerTitle: 'Add Card'
+    }
+  },
+  QuizView: {
+    screen: QuizView,
+    navigationOptions: {
+      headerTitle: 'Quiz'
+    }
+  },
+}, {headerMode: 'none'})
 
-export default connect(mapStateToProps)(DeckDetails)
+export default DeckDetailsNavigator

@@ -5,9 +5,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
-import DeckDetails from './components/DeckDetails'
-import QuizView from './components/QuizView'
-import AddCard from './components/AddCard'
+import DeckDetailsNavigator from './components/DeckDetails'
 import { Constants } from 'expo'
 import { lightBlue, darkerBlue } from './utils/colors'
 import reducer from './reducers'
@@ -56,7 +54,7 @@ const MainNavigator = StackNavigator({
     screen: Tabs,
   },
   DeckDetails: {
-    screen: DeckDetails,
+    screen: DeckDetailsNavigator,
     navigationOptions: {
       headerTintColor: 'white',
       headerStyle: {
@@ -64,24 +62,6 @@ const MainNavigator = StackNavigator({
       }
     }
   },
-  QuizView: {
-    screen: QuizView,
-    navigationOptions: {
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: lightBlue
-      }
-    }
-  },
-  AddCard: {
-    screen: AddCard,
-    navigationOptions: {
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: lightBlue
-      }
-    }
-  }
 })
 
 const store = createStore(reducer, devToolsEnhancer())

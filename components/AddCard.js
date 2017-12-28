@@ -76,16 +76,10 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapStateToProps ({decks}) {
-  return {
-    decks
-  }
-}
-
 function mapDispatchToProps(dispatch){
   return {
     saveCardToDeck: (deckName, question, answer) => dispatch(saveCardToDeck(deckName, question, answer))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddCard)
+export default connect(null,mapDispatchToProps)(AddCard)
