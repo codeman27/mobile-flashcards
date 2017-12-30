@@ -11,6 +11,13 @@ class NewDeck extends Component {
     deckName: ''
   }
 
+  saveDeckAndNavigate = (deckName) => {
+    this.props.saveDeckTitle(deckName)
+    this.setState({deckName: ''})
+    Keyboard.dismiss()
+    this.props.navigation.navigate('DeckDetails', {deckName: deckName})
+  }
+
   componentWillReceiveProps(nextProps){
     const { decks } = nextProps
     this.props.navigation.navigate('DeckDetails', {deckDetails: decks[this.state.deckName]})
@@ -33,7 +40,7 @@ class NewDeck extends Component {
         <View style={{flex: 1, alignItems: 'center', marginTop: 40}}>
           <TextButton
             text='Submit'
-            onPress={() => this.props.saveDeckTitle(this.state.deckName)}
+            onPress={() => this.saveDeckAndNavigate(this.state.deckName)}
             style={{backgroundColor: lightBlue}}
           />
         </View>
@@ -59,7 +66,6 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps ({decks}) {
-  //AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(decks))
   return {
     decks
   }

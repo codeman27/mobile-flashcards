@@ -2,16 +2,44 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { lightBlue, darkerBlue } from '../utils/colors'
 import { connect } from 'react-redux'
-import { getDecks } from '../actions'
+import { setDecks } from '../actions'
 
 class DeckList extends Component {
-  render() {
-    const { decks } = this.props
+  componentDidMount() {
+    const decks = {
+      React: {
+        title: 'React',
+        questions: [
+          {
+            question: 'What is React?',
+            answer: 'A library for managing user interfaces'
+          },
+          {
+            question: 'Where do you make Ajax requests in React?',
+            answer: 'The componentDidMount lifecycle event'
+          }
+        ]
+      },
+      Javascript: {
+        title: 'Javascript',
+        questions: [
+          {
+            question: 'What is a closure?',
+            answer: 'The combination of a function and the lexical environment within which that function was declared.'
+          }
+        ]
+      }
+    }
 
+    this.props.setDecks(decks);
+  }
+
+  render() {
+    const decks = this.props.decks
     return (
       <View>
         {Object.keys(decks).map((key) => (
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetails', {deckDetails: decks[key]})} style={styles.container} key={key}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetails', {deckName: key})} style={styles.container} key={key}>
             <Text style={styles.title}>{decks[key].title}</Text>
             <Text style={{color: lightBlue}}>{decks[key].questions.length} cards</Text>
           </TouchableOpacity>
@@ -36,10 +64,11 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapStateToProps ({decks}) {
+function mapStateToProps (state) {
   return {
-    decks
+    decks: state
   }
 }
 
-export default connect(mapStateToProps)(DeckList)
+
+export default connect(mapStateToProps, {setDecks})(DeckList)

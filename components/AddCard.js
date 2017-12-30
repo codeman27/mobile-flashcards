@@ -2,25 +2,16 @@ import React, { Component } from 'react'
 import { Text, View, TextInput, StyleSheet } from 'react-native'
 import { lightBlue, darkerBlue } from '../utils/colors'
 import TextButton from './TextButton'
-import { connect } from 'react-redux'
-import { saveCardToDeck } from '../actions'
 
 class AddCard extends Component {
-  static navigationOptions = () => {
-    return {
-      title: 'Add Card'
-    }
-  }
   state = {
       question: '',
       answer: ''
   }
 
-  saveQuestionClearInput(title, question, answer) {
-    const { deckDetails } = this.props.navigation.state.params
-    this.props.saveCardToDeck(title, question, answer)
-    this.setState({question: '', answer:''})
-    //this.props.navigation.navigate('DeckList')
+  onSubmit = (title, question, answer) => {
+    this.props.navigation.state.params.addCardHandler(title, question, answer)
+    this.props.navigation.goBack();
   }
 
   render() {
@@ -45,7 +36,7 @@ class AddCard extends Component {
         <View style={{flex: 1, alignItems: 'center', marginTop: 40}}>
           <TextButton
             text='Submit'
-            onPress={() => this.saveQuestionClearInput(title, this.state.question, this.state.answer)}
+            onPress={() => this.onSubmit(title, this.state.question, this.state.answer)}
             style={{backgroundColor: lightBlue}}
           />
         </View>
@@ -76,10 +67,4 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapDispatchToProps(dispatch){
-  return {
-    saveCardToDeck: (deckName, question, answer) => dispatch(saveCardToDeck(deckName, question, answer))
-  }
-}
-
-export default connect(null,mapDispatchToProps)(AddCard)
+export default AddCard

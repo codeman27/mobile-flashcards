@@ -1,6 +1,15 @@
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 export const SAVE_DECK_TITLE = 'SAVE_DECK_TITLE'
 export const SAVE_DECK_CARD = 'SAVE_DECK_CARD'
+export const SET_DECKS = 'SET_DECKS'
+
+
+export function setDecks(decks) {
+  return {
+    type: SET_DECKS,
+    decks
+  }
+}
 
 export function getDecks (decks) {
   return {

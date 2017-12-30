@@ -6,17 +6,23 @@ import { connect } from 'react-redux'
 import {  StackNavigator } from 'react-navigation'
 import QuizView from './QuizView'
 import AddCard from './AddCard'
+import { saveCardToDeck } from '../actions'
+
 
 class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => {
-    const { deckDetails } = navigation.state.params
+    console.log(navigation.state.params)
     return {
-      title: deckDetails.title
+      title: 'MER'//navigation.state.params.deckName
     }
   }
+
+  addCard = (title, question, answer) => {
+    this.props.saveCardToDeck(title, question, answer)
+  }
+
   render() {
-    const { deckDetails } = this.props.navigation.state.params
-    console.log(deckDetails)
+    const deckDetails = this.props.decks[this.props.navigation.state.params.deckName]
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{deckDetails.title}</Text>
@@ -25,7 +31,7 @@ class DeckDetails extends Component {
         </View>
         <TextButton
           text='Add Card'
-          onPress={() => this.props.navigation.navigate('AddCard', {deckDetails: deckDetails})}
+          onPress={() => this.props.navigation.navigate('AddCard', {deckDetails: deckDetails, addCardHandler: this.addCard})}
           style={{backgroundColor: darkerBlue}}
         />
         <TextButton
@@ -57,9 +63,15 @@ const styles = StyleSheet.create({
   },
 })
 
+
+
+const mapDispatchToProps = (dispatch) => ({
+    saveCardToDeck: (deckName, question, answer) => dispatch(saveCardToDeck(deckName, question, answer))
+});
+const mapStateToProps = (state) => ({decks: state})
 const DeckDetailsNavigator = StackNavigator({
   Home: {
-    screen: DeckDetails
+    screen: connect(mapStateToProps, mapDispatchToProps)(DeckDetails)
   },
   AddCard: {
     screen: AddCard,
