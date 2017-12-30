@@ -11,9 +11,8 @@ import { saveCardToDeck } from '../actions'
 
 class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => {
-    console.log(navigation.state.params)
     return {
-      title: 'MER'//navigation.state.params.deckName
+      title: navigation.state.params.deckName
     }
   }
 
@@ -26,7 +25,7 @@ class DeckDetails extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{deckDetails.title}</Text>
-        <Text style={styles.sub}>{deckDetails.questions.length} cards</Text>
+        <Text style={styles.sub}>{deckDetails.questions.length} {deckDetails.questions.length == 1 ? 'card' : 'cards'}</Text>
         <View style={styles.btnView}>
         </View>
         <TextButton

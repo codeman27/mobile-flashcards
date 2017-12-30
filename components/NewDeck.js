@@ -18,13 +18,6 @@ class NewDeck extends Component {
     this.props.navigation.navigate('DeckDetails', {deckName: deckName})
   }
 
-  componentWillReceiveProps(nextProps){
-    const { decks } = nextProps
-    this.props.navigation.navigate('DeckDetails', {deckDetails: decks[this.state.deckName]})
-    this.setState({deckName: ''})
-    Keyboard.dismiss()
-  }
-
   render(){
     return (
       <View style={{flex: 1}}>
@@ -65,16 +58,10 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapStateToProps ({decks}) {
-  return {
-    decks
-  }
-}
-
 function mapDispatchToProps(dispatch){
   return {
     saveDeckTitle: (title) => dispatch(saveDeckTitle(title))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewDeck)
+export default connect(null, mapDispatchToProps)(NewDeck)

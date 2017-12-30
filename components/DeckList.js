@@ -41,7 +41,7 @@ class DeckList extends Component {
         {Object.keys(decks).map((key) => (
           <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetails', {deckName: key})} style={styles.container} key={key}>
             <Text style={styles.title}>{decks[key].title}</Text>
-            <Text style={{color: lightBlue}}>{decks[key].questions.length} cards</Text>
+            <Text style={{color: lightBlue}}>{decks[key].questions.length} {decks[key].questions.length == 1 ? 'card' : 'cards'}</Text>
           </TouchableOpacity>
         ))}
       </View>
