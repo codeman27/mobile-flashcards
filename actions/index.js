@@ -1,13 +1,6 @@
-export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 export const SAVE_DECK_TITLE = 'SAVE_DECK_TITLE'
 export const SAVE_DECK_CARD = 'SAVE_DECK_CARD'
-
-export function getDecks (decks) {
-  return {
-    type: RECEIVE_DECKS,
-    decks,
-  }
-}
+export const GET_DECK = 'GET_DECK'
 
 export function saveDeckTitle(title) {
   const newDeck = {[title]: {
@@ -30,5 +23,12 @@ export function saveCardToDeck(deckName, question, answer) {
   return {
     type: SAVE_DECK_CARD,
     newCard
+  }
+}
+
+export function getDeck(deckDetails){
+  return {
+    type: GET_DECK,
+    deckDetails
   }
 }

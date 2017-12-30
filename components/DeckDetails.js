@@ -11,16 +11,16 @@ class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     const { deckDetails } = navigation.state.params
     return {
-      title: deckDetails.title
+      title: 'rabble'
     }
   }
   render() {
     const { deckDetails } = this.props.navigation.state.params
-    console.log(deckDetails)
+    const { deck } = this.props
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{deckDetails.title}</Text>
-        <Text style={styles.sub}>{deckDetails.questions.length} cards</Text>
+        <Text style={styles.title}>{deck.title}</Text>
+        <Text style={styles.sub}>{deck.questions.length} cards</Text>
         <View style={styles.btnView}>
         </View>
         <TextButton
@@ -57,22 +57,10 @@ const styles = StyleSheet.create({
   },
 })
 
-const DeckDetailsNavigator = StackNavigator({
-  Home: {
-    screen: DeckDetails
-  },
-  AddCard: {
-    screen: AddCard,
-    navigationOptions: {
-      headerTitle: 'Add Card'
-    }
-  },
-  QuizView: {
-    screen: QuizView,
-    navigationOptions: {
-      headerTitle: 'Quiz'
-    }
-  },
-}, {headerMode: 'none'})
+function mapStateToProps({deck}) {
+  return {
+    deck
+  }
+}
 
-export default DeckDetailsNavigator
+export default connect(mapStateToProps)(DeckDetails)

@@ -2,18 +2,24 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { lightBlue, darkerBlue } from '../utils/colors'
 import { connect } from 'react-redux'
-import { getDecks } from '../actions'
+import { getDeck } from '../actions'
 
 class DeckList extends Component {
+  getDeckAndNavigate = (deckDetails) => {
+    console.log(deckDetails)
+    this.props.getDeck(deckDetails)
+    this.props.navigation.navigate('DeckDetails', {deckDetails: deckDetails})
+  }
+
   render() {
     const { decks } = this.props
 
     return (
       <View>
         {Object.keys(decks).map((key) => (
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckDetails', {deckDetails: decks[key]})} style={styles.container} key={key}>
+          <TouchableOpacity onPress={() => this.getDeckAndNavigate(decks[key])} style={styles.container} key={key}>
             <Text style={styles.title}>{decks[key].title}</Text>
-            <Text style={{color: lightBlue}}>{decks[key].questions.length} cards</Text>
+            <Text style={{color: lightBlue}}>{decks[key].questions ? decks[key].questions.length : 'unknown'} cards</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -36,10 +42,16 @@ const styles = StyleSheet.create({
   }
 })
 
+function mapDispatchToProps(dispatch) {
+  return {
+    getDeck: (deckDetails) => dispatch(getDeck(deckDetails))
+  }
+}
+
 function mapStateToProps ({decks}) {
   return {
     decks
   }
 }
 
-export default connect(mapStateToProps)(DeckList)
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList)

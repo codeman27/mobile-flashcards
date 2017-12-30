@@ -13,6 +13,7 @@ class NewDeck extends Component {
 
   componentWillReceiveProps(nextProps){
     const { decks } = nextProps
+    console.log(this.props)
     this.props.navigation.navigate('DeckDetails', {deckDetails: decks[this.state.deckName]})
     this.setState({deckName: ''})
     Keyboard.dismiss()
@@ -59,7 +60,6 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps ({decks}) {
-  //AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(decks))
   return {
     decks
   }
